@@ -20,6 +20,7 @@ url = "https://raw.githubusercontent.com/jbrownlee/Datasets/master/iris.csv"
 names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'class']
 dataset = read_csv(url, names=names)
 
+#<----------------- Summarizing the Data Set-------------->
 # shape
 # .shape is used to get the idea of rows and columns from the data set
 # we use .shape
@@ -36,13 +37,25 @@ dataset = read_csv(url, names=names)
 # class distribution
 # print(dataset.groupby('class').size())
 
-# box and whisker plots
+#<----------------- Data Visualization-------------->
+
+#Plots:
+#   1. Univariate Plots     #
+
+# Box and Whisker plots
 # dataset.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False)
 # pyplot.show()
 
-# histograms
+# Histograms
 # dataset.hist()
 # pyplot.show()
 
+#   2. Mulrivariate Plots   #
+
+# Scatter plot matrix
+# scatter_matrix(dataset)
+# pyplot.show()
+
+#<----------------- Evaluating Algo's-------------->
 
 
