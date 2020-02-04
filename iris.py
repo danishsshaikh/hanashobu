@@ -56,7 +56,7 @@ dataset = read_csv(url, names=names)
 # scatter_matrix(dataset)
 # pyplot.show()
 
-#<----------------- Evaluating Algo's-------------->
+#<----------------- Evaluating Algo's(Making Dataset)-------------->
 
 # Split-out validation dataset
 array = dataset.values
@@ -65,3 +65,49 @@ X = array[:,0:4]
 Y = array[:,4]
 #print(Y) 20% as validation dataset
 X_train, X_validation, Y_train, Y_validation = train_test_split(X, Y, test_size=0.20, random_state=1)
+# Training data in the X_train and Y_train for preparing models
+# X_validation and Y_validation sets that we can use later
+
+#<-----------------Testing with k-fold cross-validation-------------->
+# Spot Check Algorithms with k-fold
+
+models = []
+models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
+models.append(('LDA', LinearDiscriminantAnalysis()))
+models.append(('KNN', KNeighborsClassifier()))
+models.append(('CART', DecisionTreeClassifier()))
+models.append(('NB', GaussianNB()))
+models.append(('SVM', SVC(gamma='auto')))
+# evaluate each model in turn
+results = []
+names = []
+for name, model in models:
+	kfold = StratifiedKFold(n_splits=10, random_state=1, shuffle=True)
+	cv_results = cross_val_score(model, X_train, Y_train, cv=kfold, scoring='accuracy')
+	results.append(cv_results)
+	names.append(name)
+	print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
+
+#<-----------------Comparing Algorithms with Box Plot-------------->
+
+# Compare Algorithms
+pyplot.boxplot(results, labels=names)
+pyplot.title('Algorithm Comparison')
+pyplot.show()
+
+#<-----------------Making Prediction-------------->
+
+# Make predictions on validation dataset
+model = SVC(gamma='auto')
+model.fit(X_train, Y_train)
+predictions = model.predict(X_validation)
+
+#<-----------------Checking Prediction-------------->
+
+# Evaluate predictions
+print(accuracy_score(Y_validation, predictions))
+print(confusion_matrix(Y_validation, predictions))
+print(classification_report(Y_validation, predictions))
+
+# Comment out from 74th line to 96th line for prediction checking :)
+ 
