@@ -21,12 +21,16 @@ names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'class']
 dataset = read_csv(url, names=names)
 
 # shape
-# To get the idea of rows and columns from the data set
+# .shape is used to get the idea of rows and columns from the data set
 # we use .shape
 # print(dataset.shape)
 
 # head
-# To peek at the actual data with names after 'read_csv'
+# .head() is ued to peek at the actual data with names after 'read_csv'
 # print(dataset.head(20))
+
+# descriptions
+# .describe is used to peek at count,mean,min,max value and %
+# print(dataset.describe())
 
 
