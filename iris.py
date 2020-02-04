@@ -58,4 +58,10 @@ dataset = read_csv(url, names=names)
 
 #<----------------- Evaluating Algo's-------------->
 
-
+# Split-out validation dataset
+array = dataset.values
+X = array[:,0:4]
+#print(X) #80% data to train the model
+Y = array[:,4]
+#print(Y) 20% as validation dataset
+X_train, X_validation, Y_train, Y_validation = train_test_split(X, Y, test_size=0.20, random_state=1)
