@@ -25,4 +25,8 @@ dataset = read_csv(url, names=names)
 # we use .shape
 # print(dataset.shape)
 
+# head
+# To peek at the actual data with names after 'read_csv'
+# print(dataset.head(20))
+
 
